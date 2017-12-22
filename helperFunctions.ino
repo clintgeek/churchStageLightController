@@ -1,0 +1,63 @@
+void welcomeMessage() {
+  screenPrinter("First Methodist", "Mansfield");
+  delay(2000);
+  clearScreen();
+}
+
+void clearScreen() {
+  lcd.setCursor(0,0);
+  lcd.print("                ");
+  lcd.setCursor(0,1);
+  lcd.print("                ");
+}
+
+void screenPrinter(String line1, String line2) {
+  debugPrinter("LCD Updated", 1);
+  clearScreen();
+  lcd.setCursor(0,0);
+  lcd.print(line1);
+  lcd.setCursor(0,1);
+  lcd.print(line2);
+}
+
+void debugPrinter(String title, int blankLines) {
+  if (debug) {
+    Serial.println(title);
+
+    for (int i=0; i < blankLines; i++) {
+      Serial.println();
+    }
+  }
+}
+
+void debugPrinter(String title, int value, int blankLines) {
+  if (debug) {
+    Serial.print(title);
+    Serial.println(value);
+
+    for (int i=0; i < blankLines; i++) {
+      Serial.println();
+    }
+  }
+}
+
+void debugPrinter(String title, char* value, int blankLines) {
+  if (debug) {
+    Serial.print(title);
+
+    int x = 0;
+    while (true) {
+      if (value[x] == '\n') {
+        Serial.println();
+        break;
+      } else {
+        Serial.print(value[x]);
+        x++;
+      }
+    }
+
+    for (int i=0; i < blankLines; i++) {
+      Serial.println();
+    }
+  }
+}
