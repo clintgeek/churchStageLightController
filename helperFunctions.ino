@@ -1,6 +1,6 @@
 void welcomeMessage() {
   screenPrinter("First Methodist", "Mansfield");
-  delay(2000);
+  powerOnSelfTest();
   clearScreen();
 }
 
@@ -37,6 +37,18 @@ void screenPrinter(String line1, String line2) {
   lcd.print(line1);
   lcd.setCursor(0,1);
   lcd.print(line2);
+}
+
+void threadSafeDelay(int min, int max) {
+  int totalDelay = random(min, max);
+  threadSafeDelay(totalDelay);
+}
+
+void threadSafeDelay(int duration) {
+  for (int delayCounter = 0; delayCounter < duration; delayCounter++) {
+    loop();
+    delay(1);
+  }
 }
 
 void debugPrinter(String title, int blankLines) {

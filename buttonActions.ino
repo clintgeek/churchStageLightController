@@ -7,14 +7,17 @@ void leftButton() {
 void downButton() {
   debugPrinter("Pressed Down", 1);
   delay(keyHandlerCheckDelay);
+  if (potentialMode == 255) {
+
+  }
 }
 
 void upButton() {
   debugPrinter("Pressed Up", 1);
-  potentialMode = 2;
-  potentialModeStart = currentMillis;
-  screenPrinter("Test", "Display");
   delay(keyHandlerCheckDelay);
+  if (potentialMode == 255) {
+
+  }
 }
 
 void rightButton() {

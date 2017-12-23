@@ -1,15 +1,32 @@
 #include <LiquidCrystal.h>
 #include "modesHelper.h"
 
-LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
-long currentMillis;
-long lastKeyHandlerCheck;
-long keyHandlerCheckDelay = 500;
-const bool debug = true;
+// Configure RGB Strip
+#define redLED 9;
+#define greenLED 10;
+#define blueLED 11;
+
+// Configure LCD
+#define LCD4 4
+#define LCD5 13
+#define LCD6 2
+#define LCD7 7
+#define LCD8 8
+#define LCD9 12
+#define LCDBUTTON A0
+LiquidCrystal lcd(LCD8, LCD9, LCD4, LCD5, LCD6, LCD7);
+
+// Global Variables
 int mode;
 int potentialMode;
-long potentialModeStart;
-long potentialModeTimeout = 10000;
+unsigned long currentMillis;
+unsigned long potentialModeStart;
+const unsigned long potentialModeTimeout = 10000;
+unsigned long lastKeyHandlerCheck;
+const unsigned long keyHandlerCheckDelay = 500;
+
+// Debug Mode
+const bool debug = true;
 
 void setup() {
   if (debug) {
@@ -18,6 +35,12 @@ void setup() {
   lcd.begin(16, 2);
   debugPrinter("Arduino Booting...", 1);
   welcomeMessage();
+  digitalWrite(redLED, LOW);
+  pinMode(redLED, OUTPUT);
+  digitalWrite(greenLED, LOW);
+  pinMode(greenLED, OUTPUT);
+  digitalWrite(blueLED, LOW);
+  pinMode(blueLED, OUTPUT);
   displayMode();
   debugPrinter("Arduino Ready!", 1);
 }
@@ -31,7 +54,7 @@ void loop() {
 
 int keyHandler() {
   bool shouldCheck = ((currentMillis - lastKeyHandlerCheck) > keyHandlerCheckDelay);
-  int keyInput = analogRead(0);
+  int keyInput = analogRead(LCDBUTTON);
   int keyOutput;
 
   if (shouldCheck && keyInput < 675) {
