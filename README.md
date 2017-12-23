@@ -6,11 +6,13 @@ Our church's youth group is spectacular. They are highly involved and tremendous
 
 
 ### Parts List:
-  * [Arduino Nano Clone](https://www.amazon.com/dp/B0739V3MR7
+  * [Arduino Nano Clone](https://www.amazon.com/dp/B0739V3MR7)
     * Or Arduino Uno Clone (the shield fits directly on the Uno)
   * [1602 LCD Keypad Shield](https://www.amazon.com/gp/product/B0744JLGWF)
     * The model I used is a parallel model, not I2C.
+  * [Protoboard (4cm x 6cm or larger)](https://www.amazon.com/Penta-Angel-Double-Side-Prototype-Universal/dp/B012YZ2PY2/ref=sr_1_22?s=industrial&dd=_0gOHfqZvRElA1KlH6X-mg%2C%2C&ddc_refnmnt=pfod&ie=UTF8&qid=1514054600&sr=1-22&keywords=protoboard&refinements=p_97%3A11292772011)
   * [(3) TIP120 Darlington NPN Transistors](https://www.amazon.com/gp/product/B00B888622/)
+  * [(3) 470 Ohm 5% Resistors](https://www.amazon.com/Watt-Carbon-Film-Resistors-pack/dp/B00EV2Q7HS)
   * [12v RGB LED Ligting (any type, non-addressable)](https://www.amazon.com/econoLED-Flexible-Multi-colors-Non-waterproof-Changing/dp/B006LW2NJM)
   * [12v 3 Amp or greater power supply](https://www.amazon.com/110V-220V-Converter-Lighting-Transformer-Flexible/dp/B073QTNF9F)
     * Match the amperage here to the amount of lights you want to control.
@@ -19,5 +21,5 @@ Our church's youth group is spectacular. They are highly involved and tremendous
   ** Note: Links above are non-affiliate links to products that I have used either for this project or in the past. They are suggestions only and may not be appropriate for your project. They should, at a minimum, give you an idea of what you're looking for.
 
 ### Other References
-  * [http://www.thomasclausen.net/en/walking-through-the-1602-lcd-keypad-shield-for-arduino/]
-  * [http://www.hobbyist.co.nz/?q=diy-tutorials]
+  * [http://www.thomasclausen.net/en/walking-through-the-1602-lcd-keypad-shield-for-arduino/]()
+  * [http://www.hobbyist.co.nz/?q=diy-tutorials]()

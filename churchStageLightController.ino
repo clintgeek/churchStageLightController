@@ -1,12 +1,13 @@
 #include <LiquidCrystal.h>
 #include "modesHelper.h"
 
-// Configure RGB Strip
+// Configure RGB Control Pins
 #define redLED 9;
 #define greenLED 10;
 #define blueLED 11;
 
-// Configure LCD
+// Configure LCD Pins
+// if using Uno, define LCD[x] as x, on nano choose non-PWM pins where possible.
 #define LCD4 4
 #define LCD5 13
 #define LCD6 2
@@ -21,12 +22,12 @@ int mode;
 int potentialMode;
 unsigned long currentMillis;
 unsigned long potentialModeStart;
-const unsigned long potentialModeTimeout = 10000;
+const unsigned long potentialModeTimeout = 10000; // defines how long mode choice menu shows
 unsigned long lastKeyHandlerCheck;
-const unsigned long keyHandlerCheckDelay = 500;
+const unsigned long keyHandlerCheckDelay = 500; // debounce for mechanical keys
 
 // Debug Mode
-const bool debug = true;
+const bool debug = true; // setting to false will disable serial output
 
 void setup() {
   if (debug) {
