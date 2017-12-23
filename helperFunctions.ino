@@ -11,6 +11,15 @@ void clearScreen() {
   lcd.print("                ");
 }
 
+String findModeName(int mode) {
+  return String(modes[mode - 1]);
+}
+
+void displayMode() {
+  clearScreen();
+  screenPrinter("Current Mode:", findModeName(mode));
+}
+
 void screenPrinter(String line1, String line2) {
   debugPrinter("LCD Updated", 1);
   clearScreen();

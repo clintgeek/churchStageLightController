@@ -4,8 +4,10 @@ LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 long currentMillis;
 long lastKeyHandlerCheck;
 long keyHandlerCheckDelay = 250;
-const debug = true;
-int mode = 1;
+const bool debug = true;
+int mode;
+int numberOfModes = 3;
+String modes[3] = {"Base Color", "Party Lights", "BreatheBaseColor"};
 
 void setup() {
   if (debug) {
@@ -14,27 +16,28 @@ void setup() {
   lcd.begin(16, 2);
   debugPrinter("Arduino Booting...", 1);
   welcomeMessage();
+  screenPrinter("Please Choose", "A Light Mode");
   debugPrinter("Arduino Ready!", 1);
 }
 
 void loop() {
   currentMillis = millis();
+  modeManager(mode);
   if(int key = keyHandler()) { actionButtonDispatcher(key); }
 }
 
 int keyHandler() {
+  bool shouldCheck = ((currentMillis - lastKeyHandlerCheck) > keyHandlerCheckDelay);
   int keyInput = analogRead(0);
   int keyOutput;
 
-  bool shouldCheck = ((currentMillis - lastKeyHandlerCheck) > keyHandlerCheckDelay);
-
-  if (keyInput < 675 && shouldCheck) {
+  if (shouldCheck && keyInput < 675) {
     debugPrinter("keyInput: ", keyInput, 0);
 
     if (keyInput < 50) { keyOutput = 4; }
-    else if (keyInput >= 50 && keyInput < 180) { keyOutput = 3; }
-    else if (keyInput >= 180 && keyInput < 336) { keyOutput = 2; }
-    else if (keyInput >= 336 && keyInput < 528) { keyOutput = 1; }
+    else if (keyInput < 180) { keyOutput = 3; }
+    else if (keyInput < 336) { keyOutput = 2; }
+    else if (keyInput < 528) { keyOutput = 1; }
     else { keyOutput = 5; }
 
     debugPrinter("keyOutput: ", keyOutput, 1);
@@ -49,54 +52,19 @@ void actionButtonDispatcher(int key) {
 
   switch(key) {
     case 1:
-      actionButtonLeft();
+      leftButton();
       break;
     case 2:
-      actionButtonDown();
+      downButton();
       break;
     case 3:
-      actionButtonUp();
+      upButton();
       break;
     case 4:
-      actionButtonRight();
+      rightButton();
       break;
     case 5:
-      actionButtonSelect();
+      selectButton();
       break;
   }
-}
-
-void actionButtonLeft() {
-  debugPrinter("Pressed Left", 1);
-  screenPrinter("You Pressed:", "LEFT");
-  delay(keyHandlerCheckDelay);
-  clearScreen();
-}
-
-void actionButtonDown() {
-  debugPrinter("Pressed Down", 1);
-  screenPrinter("You Pressed:", "DOWN");
-  delay(keyHandlerCheckDelay);
-  clearScreen();
-}
-
-void actionButtonUp() {
-  debugPrinter("Pressed Up", 1);
-  screenPrinter("You Pressed:", "UP");
-  delay(keyHandlerCheckDelay);
-  clearScreen();
-}
-
-void actionButtonRight() {
-  debugPrinter("Pressed Right", 1);
-  screenPrinter("You Pressed:", "RIGHT");
-  delay(keyHandlerCheckDelay);
-  clearScreen();
-}
-
-void actionButtonSelect() {
-  debugPrinter("Pressed Select", 1);
-  screenPrinter("You Pressed:", "SELECT");
-  delay(keyHandlerCheckDelay);
-  clearScreen();
 }
