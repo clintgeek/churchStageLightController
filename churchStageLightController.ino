@@ -4,9 +4,12 @@
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 long currentMillis;
 long lastKeyHandlerCheck;
-long keyHandlerCheckDelay = 250;
+long keyHandlerCheckDelay = 500;
 const bool debug = true;
 int mode;
+int potentialMode;
+long potentialModeStart;
+long potentialModeTimeout = 10000;
 
 void setup() {
   if (debug) {
@@ -15,12 +18,13 @@ void setup() {
   lcd.begin(16, 2);
   debugPrinter("Arduino Booting...", 1);
   welcomeMessage();
-  screenPrinter("Please Choose", "A Light Mode");
+  displayMode();
   debugPrinter("Arduino Ready!", 1);
 }
 
 void loop() {
   currentMillis = millis();
+  potentialModeClear();
   modeManager(mode);
   if(int key = keyHandler()) { actionButtonDispatcher(key); }
 }

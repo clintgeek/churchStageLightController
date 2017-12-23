@@ -13,8 +13,11 @@ Our church's youth group is spectacular. They are highly involved and tremendous
   * [(3) TIP120 Darlington NPN Transistors](https://www.amazon.com/gp/product/B00B888622/)
   * [12v RGB LED Ligting (any type, non-addressable)](https://www.amazon.com/econoLED-Flexible-Multi-colors-Non-waterproof-Changing/dp/B006LW2NJM)
   * [12v 3 Amp or greater power supply](https://www.amazon.com/110V-220V-Converter-Lighting-Transformer-Flexible/dp/B073QTNF9F)
-    * Match the amprage here to the amount of lights you want to control.
+    * Match the amperage here to the amount of lights you want to control.
 
 
   ** Note: Links above are non-affiliate links to products that I have used either for this project or in the past. They are suggestions only and may not be appropriate for your project. They should, at a minimum, give you an idea of what you're looking for.
 
+### Other References
+  * [http://www.thomasclausen.net/en/walking-through-the-1602-lcd-keypad-shield-for-arduino/]
+  * [http://www.hobbyist.co.nz/?q=diy-tutorials]

@@ -1,6 +1,7 @@
 void modeManager(int mode) {
   switch(mode) {
     case 0:
+      modeOff();
       break;
     case 1:
       modeBaseColor();
@@ -14,9 +15,19 @@ void modeManager(int mode) {
   }
 }
 
-void setMode(int newMode) {
-  mode = newMode;
-  displayMode();
+void potentialModeClear() {
+  if (potentialMode != 255) {
+    bool shouldClear = (currentMillis - potentialModeStart) > potentialModeTimeout;
+    
+    if (shouldClear) {
+      potentialMode = 255;
+      displayMode();
+    }
+  }
+}
+
+void modeOff() {
+
 }
 
 void modeBaseColor() {

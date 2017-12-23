@@ -17,7 +17,17 @@ String findModeName(int mode) {
 
 void displayMode() {
   clearScreen();
-  screenPrinter("Current Mode:", findModeName(mode));
+  if (mode > 0) {
+    screenPrinter("Current Mode:", findModeName(mode));
+  } else {
+    screenPrinter("LEFT or RIGHT", "to select mode");
+  }
+}
+
+void displayPotentialMode() {
+  potentialModeStart = currentMillis;
+  clearScreen();
+  screenPrinter("Press SELECT for:", findModeName(potentialMode));
 }
 
 void screenPrinter(String line1, String line2) {
