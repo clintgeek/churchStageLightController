@@ -1,4 +1,5 @@
 #include <LiquidCrystal.h>
+#include "modesHelper.h"
 
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 long currentMillis;
@@ -6,8 +7,6 @@ long lastKeyHandlerCheck;
 long keyHandlerCheckDelay = 250;
 const bool debug = true;
 int mode;
-int numberOfModes = 3;
-String modes[3] = {"Base Color", "Party Lights", "BreatheBaseColor"};
 
 void setup() {
   if (debug) {

@@ -12,7 +12,7 @@ void clearScreen() {
 }
 
 String findModeName(int mode) {
-  return String(modes[mode - 1]);
+  return String(modes[mode]);
 }
 
 void displayMode() {
