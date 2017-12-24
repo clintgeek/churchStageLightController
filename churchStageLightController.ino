@@ -1,5 +1,4 @@
 #include <LiquidCrystal.h>
-
 // Configure RGB Control Pins
 #define redLED 9;
 #define greenLED 10;
@@ -24,6 +23,7 @@ const String modes[] = {"OFF", "Base Color", "Party Lights", "BreatheBaseColor"}
 int mode;
 int potentialMode;
 unsigned long currentMillis;
+int baseColor[3] = {0, 0, 255};
 unsigned long potentialModeStart;
 const unsigned long potentialModeTimeout = 10000; // defines how long mode choice menu shows
 unsigned long lastKeyHandlerCheck;
@@ -54,47 +54,4 @@ void loop() {
   potentialModeClear();
   modeManager(mode);
   if(int key = keyHandler()) { actionButtonDispatcher(key); }
-}
-
-int keyHandler() {
-  bool shouldCheck = ((currentMillis - lastKeyHandlerCheck) > keyHandlerCheckDelay);
-  int keyInput = analogRead(LCDBUTTON);
-  int keyOutput;
-
-  if (shouldCheck && keyInput < 675) {
-    debugPrinter("keyInput: ", keyInput, 0);
-
-    if (keyInput < 50) { keyOutput = 4; }
-    else if (keyInput < 180) { keyOutput = 3; }
-    else if (keyInput < 336) { keyOutput = 2; }
-    else if (keyInput < 528) { keyOutput = 1; }
-    else { keyOutput = 5; }
-
-    debugPrinter("keyOutput: ", keyOutput, 1);
-    lastKeyHandlerCheck = currentMillis;
-    return keyOutput;
-  } else {
-    return false;
-  }
-}
-
-void actionButtonDispatcher(int key) {
-
-  switch(key) {
-    case 1:
-      leftButton();
-      break;
-    case 2:
-      downButton();
-      break;
-    case 3:
-      upButton();
-      break;
-    case 4:
-      rightButton();
-      break;
-    case 5:
-      selectButton();
-      break;
-  }
 }

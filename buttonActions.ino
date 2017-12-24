@@ -1,3 +1,46 @@
+int keyHandler() {
+  bool shouldCheck = ((currentMillis - lastKeyHandlerCheck) > keyHandlerCheckDelay);
+  int keyInput = analogRead(LCDBUTTON);
+  int keyOutput;
+
+  if (shouldCheck && keyInput < 675) {
+    debugPrinter("keyInput: ", keyInput, 0);
+
+    if (keyInput < 50) { keyOutput = 4; }
+    else if (keyInput < 180) { keyOutput = 3; }
+    else if (keyInput < 336) { keyOutput = 2; }
+    else if (keyInput < 528) { keyOutput = 1; }
+    else { keyOutput = 5; }
+
+    debugPrinter("keyOutput: ", keyOutput, 1);
+    lastKeyHandlerCheck = currentMillis;
+    return keyOutput;
+  } else {
+    return false;
+  }
+}
+
+void actionButtonDispatcher(int key) {
+
+  switch(key) {
+    case 1:
+      leftButton();
+      break;
+    case 2:
+      downButton();
+      break;
+    case 3:
+      upButton();
+      break;
+    case 4:
+      rightButton();
+      break;
+    case 5:
+      selectButton();
+      break;
+  }
+}
+
 void leftButton() {
   debugPrinter("Pressed Left", 1);
   delay(keyHandlerCheckDelay);
@@ -62,6 +105,17 @@ void incrementPotentialMode() {
   }
   debugPrinter("potentialMode: ", potentialMode, 1);
   displayPotentialMode();
+}
+
+void potentialModeClear() {
+  if (potentialMode != 255) {
+    bool shouldClear = (currentMillis - potentialModeStart) > potentialModeTimeout;
+
+    if (shouldClear) {
+      potentialMode = 255;
+      displayMode();
+    }
+  }
 }
 
 void setPotentialMode() {
