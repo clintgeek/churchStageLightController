@@ -1,5 +1,4 @@
 #include <LiquidCrystal.h>
-#include "modesHelper.h"
 
 // Configure RGB Control Pins
 #define redLED 9;
@@ -16,6 +15,10 @@
 #define LCD9 12
 #define LCDBUTTON A0
 LiquidCrystal lcd(LCD8, LCD9, LCD4, LCD5, LCD6, LCD7);
+
+// List and count of modes for menu system
+const int numberOfModes = 3; // excluding "OFF"
+const String modes[] = {"OFF", "Base Color", "Party Lights", "BreatheBaseColor"};
 
 // Global Variables
 int mode;
