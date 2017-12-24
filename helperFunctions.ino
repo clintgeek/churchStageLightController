@@ -7,21 +7,19 @@ String findModeName(int mode) {
   return String(modes[mode]);
 }
 
-String dispalyRgbVals() {
-  return dispalyRgbVals(solidColor);
-}
-
 String dispalyRgbVals(int rgbVals[3]) {
   return "r:" + String(rgbVals[0]) + " g:" + String(rgbVals[1]) + " b:" + String(rgbVals[2]);
 }
 
 void displayMode() {
+  displayMode(solidColor);
+}
+
+void displayMode(int rgbVals[3]) {
   if (mode < 1) {
     screenPrinter("LEFT or RIGHT", "to select mode");
-  } else if (mode == 1 || mode == 4) {
-    screenPrinter(findModeName(mode), dispalyRgbVals());
   } else {
-    screenPrinter("Current Mode:", findModeName(mode));
+    screenPrinter(findModeName(mode), dispalyRgbVals(rgbVals));
   }
 }
 
@@ -36,6 +34,27 @@ void screenPrinter(String line1, String line2) {
   lcd.print(line1);
   lcd.setCursor(0,1);
   lcd.print(line2);
+}
+
+void backlightDimmer() {
+  bool shouldDim = ((currentMillis - backlightStart) > backlightTimeout);
+
+  if (shouldDim) {
+    analogWrite(LCDLED, 10);
+  }
+}
+
+void backlightOn() {
+  backlightStart = currentMillis;
+  analogWrite(LCDLED, 255);
+}
+
+bool continueMode (int checkMode) {
+  if (checkMode == mode && potentialMode == 255) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 void threadSafeDelay(int min, int max) {
@@ -89,13 +108,5 @@ void debugPrinter(String title, char* value, int blankLines) {
     for (int i=0; i < blankLines; i++) {
       Serial.println();
     }
-  }
-}
-
-bool continueMode (int checkMode) {
-  if (checkMode == mode && potentialMode == 255) { 
-    return true;
-  } else {
-    return false;
   }
 }

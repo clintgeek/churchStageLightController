@@ -24,9 +24,26 @@ void modeOff() {
 
 void modeSolidColor() {
   rgb(solidColor[0], solidColor[1], solidColor[2]);
+  displayMode();
 }
 
 void modePartyLights() {
+  int checkMode = mode;
+  while (continueMode(checkMode)) {
+    int rgbValue[3] = { 0, 0, 0 };
+    int primaryColor = random(0, 3);
+    rgbValue[primaryColor] = 255;
+
+    for (int i = 0; i < 3; i++) {
+      if (i != primaryColor) {
+        rgbValue[i] = random(0, 85);
+      }
+    }
+
+    rgb(rgbValue[0], rgbValue[1], rgbValue[2]);
+    displayMode(rgbValue);
+    threadSafeDelay(100, 500);
+  }
 }
 
 void modeBreathe() {
@@ -53,18 +70,11 @@ void modeRainbowSwirl() {
         rgbColor[incColor] += 1;
 
         rgb(rgbColor[0], rgbColor[1], rgbColor[2]);
-        screenPrinter(findModeName(mode), dispalyRgbVals(rgbColor));
-        // delay(breatheSpeed);
+        displayMode(rgbColor);
         threadSafeDelay(breatheSpeed);
       }
     }
   }
-}
-
-void rgb(int r, int g, int b) {
-  writeSingleColor(0, r);
-  writeSingleColor(1, g);
-  writeSingleColor(2, b);
 }
 
 void powerOnSelfTest() {
@@ -80,20 +90,24 @@ void powerOnSelfTest() {
   rgb(0, 0, 0);
 }
 
-
+void rgb(int r, int g, int b) {
+  writeSingleColor(0, r);
+  writeSingleColor(1, g);
+  writeSingleColor(2, b);
+}
 
 void writeSingleColor(int colorIndex, int brightness) {
   int outPin;
 
   switch (colorIndex) {
     case 0:
-      outPin = redLED;
+      outPin = REDLED;
       break;
     case 1:
-      outPin = greenLED;
+      outPin = GREENLED;
       break;
     case 2:
-      outPin = blueLED;
+      outPin = BLUELED;
       break;
   }
 

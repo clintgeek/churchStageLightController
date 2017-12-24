@@ -24,6 +24,7 @@ int keyHandler() {
 }
 
 void actionButtonDispatcher(int key) {
+  backlightOn();
 
   switch(key) {
     case 1:
@@ -116,7 +117,7 @@ void potentialModeClear() {
 
     if (shouldClear) {
       potentialMode = 255;
-      displayMode();
+      modeManager(mode);
     }
   }
 }
@@ -126,7 +127,4 @@ void setPotentialMode() {
   potentialMode = 255;
   displayMode();
   modeManager(mode);
-}
-
-void incrementSolidColorVals() {
 }
