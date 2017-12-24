@@ -1,8 +1,8 @@
 #include <LiquidCrystal.h>
 // Configure RGB Control Pins
-#define redLED 9;
-#define greenLED 10;
-#define blueLED 11;
+#define redLED 9
+#define greenLED 10
+#define blueLED 11
 
 // Configure LCD Pins
 // if using Uno, define LCD[x] as x, on nano choose non-PWM pins where possible.
@@ -16,14 +16,15 @@
 LiquidCrystal lcd(LCD8, LCD9, LCD4, LCD5, LCD6, LCD7);
 
 // List and count of modes for menu system
-const int numberOfModes = 3; // excluding "OFF"
-const String modes[] = {"OFF", "Base Color", "Party Lights", "BreatheBaseColor"};
+const int numberOfModes = 4; // excluding "OFF"
+const String modes[] = {"OFF", "Solid Color", "Party Lights", "Breathe", "Rainbow Swirl"};
 
 // Global Variables
 int mode;
 int potentialMode;
 unsigned long currentMillis;
-int baseColor[3] = {0, 0, 255};
+int breatheSpeed = 30;
+int solidColor[3] = {0, 0, 255};
 unsigned long potentialModeStart;
 const unsigned long potentialModeTimeout = 10000; // defines how long mode choice menu shows
 unsigned long lastKeyHandlerCheck;
@@ -52,6 +53,5 @@ void setup() {
 void loop() {
   currentMillis = millis();
   potentialModeClear();
-  modeManager(mode);
   if(int key = keyHandler()) { actionButtonDispatcher(key); }
 }

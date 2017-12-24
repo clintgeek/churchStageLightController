@@ -4,13 +4,16 @@ void modeManager(int mode) {
       modeOff();
       break;
     case 1:
-      modeBaseColor();
+      modeSolidColor();
       break;
     case 2:
       modePartyLights();
       break;
     case 3:
-      modeBaseColorBreathe();
+      modeBreathe();
+      break;
+    case 4:
+      modeRainbowSwirl();
       break;
   }
 }
@@ -19,14 +22,43 @@ void modeOff() {
   rgb(0, 0, 0);
 }
 
-void modeBaseColor() {
-  rgb(baseColor[0], baseColor[1], baseColor[2]);
+void modeSolidColor() {
+  rgb(solidColor[0], solidColor[1], solidColor[2]);
 }
 
 void modePartyLights() {
 }
 
-void modeBaseColorBreathe() {
+void modeBreathe() {
+}
+
+void modeRainbowSwirl() {
+  int checkMode = mode;
+  int rgbColor[3];
+
+  // Start off with red.
+  rgbColor[0] = 255;
+  rgbColor[1] = 0;
+  rgbColor[2] = 0;
+
+  while (continueMode(checkMode)) {
+    // Choose the colors to increment and decrement.
+    for (int decColor = 0; (decColor < 3) && continueMode(checkMode); decColor += 1) {
+      int incColor = decColor == 2 ? 0 : decColor + 1;
+
+      // cross-fade the two colors.
+      for (int i = 0; (i < 255) && continueMode(checkMode); i += 1) {
+
+        rgbColor[decColor] -= 1;
+        rgbColor[incColor] += 1;
+
+        rgb(rgbColor[0], rgbColor[1], rgbColor[2]);
+        screenPrinter(findModeName(mode), dispalyRgbVals(rgbColor));
+        // delay(breatheSpeed);
+        threadSafeDelay(breatheSpeed);
+      }
+    }
+  }
 }
 
 void rgb(int r, int g, int b) {

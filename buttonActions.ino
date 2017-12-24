@@ -1,20 +1,23 @@
 int keyHandler() {
   bool shouldCheck = ((currentMillis - lastKeyHandlerCheck) > keyHandlerCheckDelay);
-  int keyInput = analogRead(LCDBUTTON);
-  int keyOutput;
+  if (shouldCheck) {
+    int keyInput = analogRead(LCDBUTTON);
+    if (keyInput < 675) {
+      int keyOutput;
+      debugPrinter("keyInput: ", keyInput, 0);
 
-  if (shouldCheck && keyInput < 675) {
-    debugPrinter("keyInput: ", keyInput, 0);
+      if (keyInput < 50) { keyOutput = 4; }
+      else if (keyInput < 180) { keyOutput = 3; }
+      else if (keyInput < 336) { keyOutput = 2; }
+      else if (keyInput < 528) { keyOutput = 1; }
+      else { keyOutput = 5; }
 
-    if (keyInput < 50) { keyOutput = 4; }
-    else if (keyInput < 180) { keyOutput = 3; }
-    else if (keyInput < 336) { keyOutput = 2; }
-    else if (keyInput < 528) { keyOutput = 1; }
-    else { keyOutput = 5; }
-
-    debugPrinter("keyOutput: ", keyOutput, 1);
-    lastKeyHandlerCheck = currentMillis;
-    return keyOutput;
+      debugPrinter("keyOutput: ", keyOutput, 1);
+      lastKeyHandlerCheck = currentMillis;
+      return keyOutput;
+    } else {
+      return false;
+    }
   } else {
     return false;
   }
@@ -122,4 +125,8 @@ void setPotentialMode() {
   mode = potentialMode;
   potentialMode = 255;
   displayMode();
+  modeManager(mode);
+}
+
+void incrementSolidColorVals() {
 }

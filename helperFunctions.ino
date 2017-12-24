@@ -1,39 +1,38 @@
 void welcomeMessage() {
   screenPrinter("First Methodist", "Mansfield");
   powerOnSelfTest();
-  clearScreen();
-}
-
-void clearScreen() {
-  lcd.setCursor(0,0);
-  lcd.print("                ");
-  lcd.setCursor(0,1);
-  lcd.print("                ");
 }
 
 String findModeName(int mode) {
   return String(modes[mode]);
 }
 
+String dispalyRgbVals() {
+  return dispalyRgbVals(solidColor);
+}
+
+String dispalyRgbVals(int rgbVals[3]) {
+  return "r:" + String(rgbVals[0]) + " g:" + String(rgbVals[1]) + " b:" + String(rgbVals[2]);
+}
+
 void displayMode() {
-  clearScreen();
-  if (mode > 0) {
-    screenPrinter("Current Mode:", findModeName(mode));
-  } else {
+  if (mode < 1) {
     screenPrinter("LEFT or RIGHT", "to select mode");
+  } else if (mode == 1 || mode == 4) {
+    screenPrinter(findModeName(mode), dispalyRgbVals());
+  } else {
+    screenPrinter("Current Mode:", findModeName(mode));
   }
 }
 
 void displayPotentialMode() {
   potentialModeStart = currentMillis;
-  clearScreen();
   screenPrinter("Press SELECT for:", findModeName(potentialMode));
 }
 
 void screenPrinter(String line1, String line2) {
   debugPrinter("LCD Updated", 1);
-  clearScreen();
-  lcd.setCursor(0,0);
+  lcd.clear();
   lcd.print(line1);
   lcd.setCursor(0,1);
   lcd.print(line2);
@@ -90,5 +89,13 @@ void debugPrinter(String title, char* value, int blankLines) {
     for (int i=0; i < blankLines; i++) {
       Serial.println();
     }
+  }
+}
+
+bool continueMode (int checkMode) {
+  if (checkMode == mode && potentialMode == 255) { 
+    return true;
+  } else {
+    return false;
   }
 }
