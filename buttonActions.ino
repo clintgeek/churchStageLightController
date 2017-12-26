@@ -47,13 +47,11 @@ void actionButtonDispatcher(int key) {
 
 void leftButton() {
   debugPrinter("Pressed Left", 1);
-  delay(keyHandlerCheckDelay);
   decrementPotentialMode();
 }
 
 void downButton() {
   debugPrinter("Pressed Down", 1);
-  delay(keyHandlerCheckDelay);
   if (potentialMode == 255) {
 
   }
@@ -61,7 +59,6 @@ void downButton() {
 
 void upButton() {
   debugPrinter("Pressed Up", 1);
-  delay(keyHandlerCheckDelay);
   if (potentialMode == 255) {
 
   }
@@ -69,13 +66,11 @@ void upButton() {
 
 void rightButton() {
   debugPrinter("Pressed Right", 1);
-  delay(keyHandlerCheckDelay);
   incrementPotentialMode();
 }
 
 void selectButton() {
   debugPrinter("Pressed Select", 1);
-  delay(keyHandlerCheckDelay);
   setPotentialMode();
 }
 
