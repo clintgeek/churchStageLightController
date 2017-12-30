@@ -7,18 +7,30 @@ void modeManager(int mode) {
       modeSolidColor();
       break;
     case 2:
-      modePartyLights();
+      modeSolidWhite();
       break;
     case 3:
-      modeBreathe();
+      modeSolidRed();
       break;
     case 4:
-      modeRgbBreathe();
+      modeSolidGreen();
       break;
     case 5:
-      modeRainbowSwirl();
+      modeSolidBlue();
       break;
     case 6:
+      modePartyLights();
+      break;
+    case 7:
+      modeBreathe();
+      break;
+    case 8:
+      modeRgbBreathe();
+      break;
+    case 9:
+      modeRainbowSwirl();
+      break;
+    case 10:
       modeFire();
       break;
   }
@@ -31,6 +43,38 @@ void modeOff() {
 void modeSolidColor() {
   rgb(solidColor[0], solidColor[1], solidColor[2]);
   displayMode();
+}
+
+void modeSolidWhite() {
+  mode = 1;
+  solidColor[0] = 175;
+  solidColor[1] = 150;
+  solidColor[2] = 125;
+  modeSolidColor();
+}
+
+void modeSolidRed() {
+  mode = 1;
+  solidColor[0] = 255;
+  solidColor[1] = 0;
+  solidColor[2] = 0;
+  modeSolidColor();
+}
+
+void modeSolidGreen() {
+  mode = 1;
+  solidColor[0] = 0;
+  solidColor[1] = 255;
+  solidColor[2] = 0;
+  modeSolidColor();
+}
+
+void modeSolidBlue() {
+  mode = 1;
+  solidColor[0] = 0;
+  solidColor[1] = 0;
+  solidColor[2] = 255;
+  modeSolidColor();
 }
 
 void modePartyLights() {

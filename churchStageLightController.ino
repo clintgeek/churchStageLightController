@@ -17,8 +17,8 @@
 LiquidCrystal lcd(LCD8, LCD9, LCD4, LCD5, LCD6, LCD7);
 
 // List and count of modes for menu system
-const int numberOfModes = 6; // excluding "OFF"
-const String modes[] = {"OFF", "Solid Color", "Party Lights", "Breathe", "RGB Breathe", "Rainbow Swirl", "Fire"};
+const int numberOfModes = 10; // excluding "OFF"
+const String modes[] = {"OFF", "Solid Color", "Solid White", "Solid Red", "Solid Green", "Solid Blue", "Party Lights", "Breathe", "RGB Breathe", "Rainbow Swirl", "Fire"};
 
 // Global Variables
 int mode;

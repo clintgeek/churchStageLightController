@@ -56,6 +56,7 @@ void downButton() {
   debugPrinter("adjustMode: ", adjustMode, 0);
 
   if (potentialMode == 255 && adjustMode < 4) {
+    adjustModeStart = currentMillis;
     int colorIndex;
 
     switch (adjustMode) {
@@ -79,6 +80,7 @@ void upButton() {
   debugPrinter("adjustMode: ", adjustMode, 0);
 
   if (potentialMode == 255 && adjustMode < 4) {
+    adjustModeStart = currentMillis;
     int colorIndex;
 
     switch (adjustMode) {
