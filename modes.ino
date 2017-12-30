@@ -13,7 +13,13 @@ void modeManager(int mode) {
       modeBreathe();
       break;
     case 4:
+      modeRgbBreathe();
+      break;
+    case 5:
       modeRainbowSwirl();
+      break;
+    case 6:
+      modeFire();
       break;
   }
 }
@@ -47,6 +53,23 @@ void modePartyLights() {
 }
 
 void modeBreathe() {
+  int checkMode = mode;
+  while(continueMode(checkMode)) {
+    breatheIn(primaryColor(), checkMode);
+    breatheOut(primaryColor(), checkMode);
+  }
+}
+
+void modeRgbBreathe() {
+  int checkMode = mode;
+  while(continueMode(checkMode)) {
+    breatheIn(0, checkMode);
+    breatheOut(0, checkMode);
+    breatheIn(1, checkMode);
+    breatheOut(1, checkMode);
+    breatheIn(2, checkMode);
+    breatheOut(2, checkMode);
+  }
 }
 
 void modeRainbowSwirl() {
@@ -77,6 +100,18 @@ void modeRainbowSwirl() {
   }
 }
 
+void modeFire() {
+  int checkMode = mode;
+  while (continueMode(checkMode)) {
+    int greenValue = random(25, 75);
+    int redValue = random(225, 245);
+    rgb(redValue, greenValue, 0);
+    int rgbColor[3] = {redValue, greenValue, 0};
+    displayMode(rgbColor);
+    threadSafeDelay(63, 125);
+  }
+}
+
 void powerOnSelfTest() {
   rgb(100, 0, 0);
   delay(750);
@@ -94,6 +129,48 @@ void rgb(int r, int g, int b) {
   writeSingleColor(0, r);
   writeSingleColor(1, g);
   writeSingleColor(2, b);
+}
+
+void breatheIn(int color, int checkMode) {
+  int rgbColor[3];
+  rgbColor[0] = 0;
+  rgbColor[1] = 0;
+  rgbColor[2] = 0;
+
+  for (int brightness = 0; (brightness <= 255) && (continueMode(checkMode)); brightness++) {
+    rgbColor[color] = brightness;
+    rgb(rgbColor[0], rgbColor[1], rgbColor[2]);
+    displayMode(rgbColor);
+    threadSafeDelay(breatheSpeed);
+  }
+}
+
+void breatheOut(int color, int checkMode) {
+  int rgbColor[3];
+  rgbColor[0] = 0;
+  rgbColor[1] = 0;
+  rgbColor[2] = 0;
+  rgbColor[color] = 255;
+
+  for (int brightness = 255; (brightness >= 1) && (continueMode(checkMode)); brightness--) {
+    rgbColor[color] = brightness;
+    rgb(rgbColor[0], rgbColor[1], rgbColor[2]);
+    displayMode(rgbColor);
+    threadSafeDelay(breatheSpeed);
+  }
+}
+
+int primaryColor() {
+  int primaryColor;
+  if (solidColor[0] > solidColor[1] && solidColor[0] > solidColor[2]) {
+    primaryColor = 0;
+  }
+  else if (solidColor[1] > solidColor[0] && solidColor[1] > solidColor[2]) {
+    primaryColor = 1;
+  }
+  else primaryColor = 2;
+
+  return primaryColor;
 }
 
 void writeSingleColor(int colorIndex, int brightness) {

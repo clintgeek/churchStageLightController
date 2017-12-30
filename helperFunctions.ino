@@ -7,8 +7,15 @@ String findModeName(int mode) {
   return String(modes[mode]);
 }
 
-String dispalyRgbVals(int rgbVals[3]) {
-  return "r:" + String(rgbVals[0]) + " g:" + String(rgbVals[1]) + " b:" + String(rgbVals[2]);
+void dispalyRgbVals(int rgbVals[3]) {
+  lcd.setCursor(0,1);
+  lcd.print("                ");
+  lcd.setCursor(0,1);
+  lcd.print("R" + String(rgbVals[0]));
+  lcd.setCursor(6,1);
+  lcd.print("G" + String(rgbVals[1]));
+  lcd.setCursor(12,1);
+  lcd.print("B" + String(rgbVals[2]));
 }
 
 void displayMode() {
@@ -19,7 +26,8 @@ void displayMode(int rgbVals[3]) {
   if (mode < 1) {
     screenPrinter("LEFT or RIGHT", "to select mode");
   } else {
-    screenPrinter(findModeName(mode), dispalyRgbVals(rgbVals));
+    screenPrinter(findModeName(mode),"");
+    dispalyRgbVals(rgbVals);
   }
 }
 
